@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -
 from pymongo import MongoClient
-import crawler2
+import crawler3
 INDEX = 'https://www.moviemovie.com.tw/movie/year-'
 if __name__ == "__main__":
 	client = MongoClient('mongodb://cc2017:' + "12345" + '@127.0.0.1/tracking?authSource=admin')
@@ -9,7 +9,7 @@ if __name__ == "__main__":
 	db = client.mydb
 	movie_collection = db.movietitle
 
-	mycrawler = crawler2.moviecrawler(40,2016,INDEX)
+	mycrawler = crawler3.moviecrawler(40,2016,INDEX)
 	#start = time.time()
 	data=mycrawler.run()
 	#print('花費: %f 秒'%(time.time() - start))

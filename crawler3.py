@@ -54,7 +54,7 @@ class moviecrawler:
                 "Grade" : grade,
                 'Time': time,
                 'Rate': float(rate),
-                'date' : date
+                'Date' : date
             })
 
 
