@@ -28,8 +28,7 @@ class pttcrawler:
         for article in soup.find_all('div', 'r-ent'):
             meta = article.find('div', 'title').find('a') or self.NOT_EXIST
             push = article.find('div', 'nrec').getText()
-            catagory = "NAN"
-            
+    n_list = load_data()
             if not push : 
                 push = '0'
             title = str(meta.getText().strip())
@@ -58,7 +57,7 @@ class pttcrawler:
             })
             
         next_link = soup.find('div', 'btn-group-paging').find_all('a', 'btn')[1].get('href')
-	print("a")
+
         return posts, next_link
 
     def get_paged_meta(self, page):

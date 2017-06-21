@@ -27,9 +27,19 @@ def forweigh(x):
 '''		
 def score(x):
 	if x.Category.find('好')>=0:
-		return int(x.Push.replace('X','-'))*1+1
+		if x.Push.find('爆')>=0:
+			return	100
+		elif x.Push.find('XX')>=0:
+			return -100
+		else:
+			return int(x.Push.replace('X','-'))*1+1
 	elif x.Category.find('負')>=0:
-		return int(x.Push.replace('X','-'))*-1-1
+		if x.Push.find('XX')>=0:
+			return -100
+		elif x.Push.find('爆')>=0:
+			return 100
+		else:
+			return int(x.Push.replace('X','-'))*-1-1
 	else :
 		return 0
 def forappend(x,sco,s):
@@ -64,7 +74,7 @@ for s in title:
 	formovietitle=out.filter(lambda x: x.Title.find(s.Title)>=0)
 	if total!=0:
 		sco=(abs(sco)/total)*5
-	output2.append({"Movietitle":s.Title,"Score":float(sco),"Img":s.Img,"Rate":s.Rate,"Grade":s.Grade,"Time":s.Time})
+	output2.append({"Movietitle":s.Title,"Score":float(sco),"Img":s.Img,"Rate":s.Rate,"Grade":s.Grade,"Time":s.Time,"Date":s.Date})
 	if formovietitle.isEmpty():
 		output.append({"Movietitle":s.Title,
 			"Title":'NAN',
@@ -90,11 +100,11 @@ for s in title:
 
 
 wr=my_spark.createDataFrame(output)
-wr.write.format("com.stratio.datasource.mongodb").options(host="localhost:27017", database="mydb", collection="sparkoutput").mode("append").save()
+wr.write.format("com.stratio.datasource.mongodb").options(host="localhost:27017", database="mydb", collection="pptlog").mode("append").save()
 wr.show()
 
 wr2=my_spark.createDataFrame(output2)
-wr2.write.format("com.stratio.datasource.mongodb").options(host="localhost:27017", database="mydb", collection="sparkoutput2").mode("append").save()
+wr2.write.format("com.stratio.datasource.mongodb").options(host="localhost:27017", database="mydb", collection="index").mode("append").save()
 wr2.show()
 
 
