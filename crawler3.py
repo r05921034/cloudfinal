@@ -30,7 +30,11 @@ class moviecrawler:
                 date  =  movie.find('span', 'soon').getText().split('\t')[1]
                 date  = date.split('\r')[0]
             except:
-                date = 'NAN'
+                try : 
+                    date  =  movie.find('div','mdbTitle').find_all('span')[1].getText().split('\t')[1]
+                    date  = date.split('\r')[0]
+                except:
+                    date = 'NAN'
             try :
                 rate = movie.find('div', 'introRate').find('span').getText().replace('\t','').replace('\n','').replace('\r','')
             except:
@@ -79,7 +83,7 @@ class moviecrawler:
 
 if __name__ == '__main__':
     
-    mycrawler = moviecrawler(5, 2017,INDEX)
+    mycrawler = moviecrawler(5, 2016,INDEX)
     # start = time.time()
     data = mycrawler.run()
     for d in data:
